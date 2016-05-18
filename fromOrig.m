@@ -1,28 +1,36 @@
+origin = [0,0];
 L = 100; 
 area = L*L;
 
 lambda = 0.01; % rwp density
 
-currentPosition = [0,0];
-origin = [0,0];
-r0 = 10;
+noOfIter = 1000;
 
-distTravelled = 0;
+distTravelled = zeros(1, noOfIter);
 
-while distance(currentPosition, origin) < r0
+for i = 1:noOfIter
     
-    N = poissrnd(lambda*area); % no. of AUs
-    p = unifrnd(-L/2,L/2,N,2);
+    currentPosition = [0,0];
 
-    distances = distance(p,currentPosition);
-    minDist = min(distances);
-    nextPosIndex = find(distances == minDist);
-    nextPosition = p(nextPosIndex,:);
+    r0 = 10;
+
     
-    currentPosition = nextPosition;
-    distTravelled = distTravelled + minDist;
+    while distance(currentPosition, origin) < r0
+
+        N = poissrnd(lambda*area); % no. of AUs
+        p = unifrnd(-L/2,L/2,N,2);
+
+        distances = distance(p,currentPosition);
+        minDist = min(distances);
+        nextPosIndex = find(distances == minDist);
+        nextPosition = p(nextPosIndex,:);
+
+        currentPosition = nextPosition;
+        distTravelled(i) = distTravelled(i) + minDist;
+
+    end
     
 end
 
-distTravelled
-
+averageDist = cumsum(distTravelled)./(1:length(distTravelled));
+plot(averageDist)
