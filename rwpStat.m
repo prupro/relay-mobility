@@ -4,15 +4,20 @@ area = L*L;
 
 lambda = 0.01; % rwp density
 
-noOfIter = 1000;
+noOfLegs = 100;
 
-distTravelled = zeros(1, noOfIter);
+noOfPaths = 10;
+totalDist = zeros(1,noOfPaths);
+
+for j = 1:noOfPaths
+
+distTravelled = zeros(1, noOfLegs);
 
 currentPosition = origin;
 
-nextPosition = zeros( noOfIter,2);
+nextPosition = zeros( noOfLegs,2);
 
-for i = 1:noOfIter
+for i = 1:noOfLegs
     
     N = poissrnd(lambda*area); % no. of AUs
     p = unifrnd(-L/2,L/2,N,2);
@@ -27,5 +32,6 @@ for i = 1:noOfIter
    
 end
 
-averageDist = cumsum(distTravelled)./(1:length(distTravelled));
-plot(averageDist)
+totalDist(j) = sum(distTravelled);
+end
+sum(totalDist)/(noOfLegs*noOfPaths)
