@@ -1,7 +1,6 @@
 origin = [0,0];
 L = 100; 
 area = L*L;
-
 lambda = 0.01; % rwp density
 
 noOfLegs = 100;
@@ -22,7 +21,7 @@ for i = 1:noOfLegs
     N = poissrnd(lambda*area); % no. of AUs
     p = unifrnd(-L/2,L/2,N,2);
 
-    distances = distance(p,currentPosition);
+    distances = sqrt(sum((p-repmat(currentPosition,length(p),1))'.^2));
     minDist = min(distances);
     nextPosIndex = find(distances == minDist);
     nextPosition(i,:) = p(nextPosIndex,:);
