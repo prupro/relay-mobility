@@ -4,8 +4,8 @@ area = L*L;
 
 lambda = 0.001; % rwp density
 
-radius1 = 50;
-radius2 = 1;
+radius1 = 100;
+radius2 = 0.4*radius1;
 center1 = origin;
 center2 = [radius1,0];
 
@@ -40,3 +40,4 @@ for i = 1:noOfIter
 end
 
 averageDist = sum(distTravelled)/noOfIter
+theoriticalDist = (1/(2*sqrt(lambda)))*(1/2 - qfunc(radius2*sqrt(2*pi*lambda)))
