@@ -3,7 +3,7 @@ R2 = 0.4*R1;
 lambda = 0.001;
 
 
-theta = 15*pi/180; %0; %acos( 1 - R2*R2/(2*R1*R1) );
+theta = 5*pi/180; %0; %acos( 1 - R2*R2/(2*R1*R1) );
 x = R1*cos(theta)-sqrt(R2*R2 - R1*R1*sin(theta)^2):3:R1;
 
 probability_formula = zeros(1,numel(x));
@@ -25,6 +25,8 @@ for j = 1:numel(x)
     a2 = alpha2;
     if a1 < 0
         a1 = pi + a1;
+    end
+    if a2 < 0
         a2 = pi + a2;
     end
     f1 = @(alpha) (1/2/pi)*exp(-pi*lambda*r11(alpha).*r11(alpha));

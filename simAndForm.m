@@ -24,6 +24,8 @@ for j = 1:numel(x)
     a2 = alpha2;
     if a1 < 0
         a1 = pi + a1;
+    end
+    if a2 < 0
         a2 = pi + a2;
     end
     f1 = @(alpha) (1/2/pi)*exp(-pi*lambda*r11(alpha).*r11(alpha));
