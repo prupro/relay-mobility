@@ -1,8 +1,8 @@
 R1 = 150;
 R2 = 0.4*R1;
-lambda = 0.001;
+lambda = 0.0005;
 
-theta = -15*pi/180; %0; %acos( 1 - R2*R2/(2*R1*R1) );
+theta = 15*pi/180; %0; %acos( 1 - R2*R2/(2*R1*R1) );
 x = R1*cos(theta)-sqrt(R2*R2 - R1*R1*sin(theta)^2):3:R1;
 
 probability_formula = zeros(1,numel(x));
@@ -77,10 +77,10 @@ probability_sim(j) = sum(out)/noOfIters;
 end
 plot(x,probability_formula,'r',x,probability_sim);
 legend('analytic','simulation');
-title('Probability of moving out in one step;\theta=-15 deg.');
+title('Probability of moving out in one step;\theta=15 deg., \lambda=0.0005');
 xlabel('Distance from BS');
 ylabel('Probability');
 
-save('figs/oneOutProb-15.txt', 'x', '-ASCII','-append');
-save('figs/oneOutProb-15.txt', 'probability_formula', '-ASCII','-append');
-save('figs/oneOutProb-15.txt', 'probability_sim', '-ASCII','-append');
+save('figs/oneOutProbl0.0005t15.txt', 'x', '-ASCII','-append');
+save('figs/oneOutProbl0.0005t15.txt', 'probability_formula', '-ASCII','-append');
+save('figs/oneOutProbl0.0005t15.txt', 'probability_sim', '-ASCII','-append');
