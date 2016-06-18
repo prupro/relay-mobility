@@ -10,7 +10,7 @@ lambda = 0.001;
 center1 = origin;
 center2 = [R1,0];
 
-theta = 20*pi/180;
+theta = 5*pi/180;
 x = R1*cos(theta)-sqrt(R2*R2 - R1*R1*sin(theta)^2):3:R1;
 
 
@@ -42,7 +42,6 @@ for j = 1:numel(x)
     Prob = integral(f1,-a2,a1) +  integral(f2,a1,2*pi-a2);
     probability_formula(j) = Prob;
 end
-plot(1./probability_formula,'r')
 
 
 noOfIter = 1000;
@@ -55,7 +54,7 @@ for j = 1:numel(x)
 
         currentPosition = [x(j)*cos(theta),x(j)*sin(theta)];
 
-        while (norm(currentPosition-center1)<=R1)&&(norm(currentPosition-center2)<=R2)
+        while (norm(currentPosition-center1)<=R1)&&(norm(currentPosition-center2)<=R2+0.001)
 
             N = poissrnd(lambda*area); % no. of AUs
             p = unifrnd(-L/2,L/2,N,2);
@@ -74,8 +73,16 @@ for j = 1:numel(x)
 
     end
 end
-noOfLegs = noOfLegs/1000;
+noOfLegs = noOfLegs/noOfIter;
 
-hold on;
-plot(noOfLegs)
+plot(x,1./probability_formula,'r',x,noOfLegs);
+legend('analytic','simulation');
+title('No. of steps to leave;\theta=5^0, \lambda=0.001');
+xlabel('Distance from BS');
+ylabel('# steps');
+
+% save('figs/oneOutProbl0.0005t15.txt', 'x', '-ASCII','-append');
+% save('figs/oneOutProbl0.0005t15.txt', 'probability_formula', '-ASCII','-append');
+% save('figs/oneOutProbl0.0005t15.txt', 'probability_sim', '-ASCII','-append');
+
 
